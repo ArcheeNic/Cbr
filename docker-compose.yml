@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  #PHP Service
+  php:
+    build: ./docker/php
+    volumes:
+      - .:/var/www
+    working_dir: /var/www
+    networks:
+      - app-network
+    ports:
+      - "8080:8080"
+    command: "tail -f /dev/null"
+
+  #Redis Service
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge

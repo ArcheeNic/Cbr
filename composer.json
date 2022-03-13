@@ -1,0 +1,17 @@
+{
+    "name": "archee-nic/cbr",
+    "description": "cbr.ru custom SDK api",
+    "type": "library",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Kasimov Arthur",
+            "email": "kasimovarthur@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "symfony/cache": "6.0.x-dev",
+        "symfony/http-client": "6.0.x-dev"
+    }
+}
