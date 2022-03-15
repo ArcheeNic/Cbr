@@ -11,11 +11,15 @@
   ],
   "autoload": {
     "psr-4": {
-      "ArcheeNic\\Cbr\\": ["src/","tests/"]
+      "ArcheeNic\\Cbr\\": [
+        "src/",
+        "tests/"
+      ]
     }
   },
   "minimum-stability": "dev",
   "require": {
+    "php": "^8.0",
     "symfony/cache": "^6.0",
     "symfony/http-client": "^6.0",
     "laravie/parser": "^v2.1",

@@ -8,6 +8,7 @@ use ArcheeNic\Cbr\Object\ExchangeItemObject;
 use DateInterval;
 use DateTime;
 use JsonException;
+use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use RuntimeException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -41,9 +42,10 @@ class DynamicExchangeGettingService
      * @param  DateTime            $date
      *
      * @return ExchangeItemObject|null
-     * @throws JsonException
-     * @throws InvalidArgumentException
+     * @throws CacheException
      * @throws ClientExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws JsonException
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
@@ -75,11 +77,13 @@ class DynamicExchangeGettingService
      * @param  DateTime            $end
      *
      * @return void
-     * @throws JsonException
      * @throws ClientExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws JsonException
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws CacheException
      */
     private function getData(CurrencyItemObject $currency, DateTime $start, DateTime $end): void
     {

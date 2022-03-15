@@ -5,8 +5,14 @@ namespace ArcheeNic\Cbr\Service;
 use ArcheeNic\Cbr\Mapper\RequestMapper;
 use ArcheeNic\Cbr\Object\ExchangeItemObject;
 use DateTime;
+use JsonException;
+use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use RuntimeException;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class DailyExchangeGettingService
 {
@@ -30,7 +36,13 @@ class DailyExchangeGettingService
      * @param  string[]  $codes
      *
      * @return ExchangeItemObject[]
+     * @throws CacheException
+     * @throws ClientExceptionInterface
      * @throws InvalidArgumentException
+     * @throws JsonException
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
     public function getByDate(DateTime $date, array $codes): array
     {
@@ -54,6 +66,15 @@ class DailyExchangeGettingService
         return array_filter($result);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     * @throws RedirectionExceptionInterface
+     * @throws CacheException
+     * @throws ClientExceptionInterface
+     * @throws JsonException
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     */
     private function getData(DateTime $date): bool
     {
         $result = false;

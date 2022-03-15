@@ -10,14 +10,14 @@ use RuntimeException;
 class RequestMapper
 {
     /**
-     * @param  array<mixed>  $requestData
-     * @param  DateTime      $date
+     * @param  mixed[]   $requestData
+     * @param  DateTime  $date
      *
      * @return array<ExchangeItemObject>
      */
     public function dayItems(array $requestData, DateTime $date): array
     {
-        $result = array_map(function (array $row) use ($date) {
+        $result = array_map(static function (array $row) use ($date) {
             $value = $row['Value'] ?? null;
             if ($value) {
                 $value = (float)str_replace(',', '.', $value);
@@ -45,7 +45,7 @@ class RequestMapper
 
     /**
      * @param  CurrencyItemObject  $currency
-     * @param  array<mixed>        $requestData
+     * @param  mixed[]             $requestData
      *
      * @return array<ExchangeItemObject>
      */
@@ -54,7 +54,7 @@ class RequestMapper
         $data            = $requestData['Record'] ?? [];
         $previousSaleDay = null;
 
-        $result = array_map(function (array $row) use ($currency, &$previousSaleDay) {
+        $result = array_map(static function (array $row) use ($currency, &$previousSaleDay) {
             $dateString = $row['@attributes']['Date'] ?? null;
             if (!$dateString) {
                 throw new RuntimeException('Incorrect Date field');
@@ -91,7 +91,7 @@ class RequestMapper
     }
 
     /**
-     * @param  array<mixed>  $requestData
+     * @param  mixed[]  $requestData
      *
      * @return array<CurrencyItemObject>
      */
@@ -102,7 +102,7 @@ class RequestMapper
             return $data;
         }
 
-        $result = array_map(function (array $row) {
+        $result = array_map(static function (array $row) {
             $ISOCharCode = $row['ISO_Char_Code'] ?? null;
             if (is_array($ISOCharCode)) {
                 $ISOCharCode = null;

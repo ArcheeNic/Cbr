@@ -8,6 +8,7 @@ use ArcheeNic\Cbr\Service\DailyExchangeGettingService;
 use ArcheeNic\Cbr\Service\DynamicExchangeGettingService;
 use DateTime;
 use JsonException;
+use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use RuntimeException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -34,12 +35,19 @@ class Cbr
 
     /**
      * Получить курс валюты на конкретную дату
-     * @throws TransportExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws InvalidArgumentException
-     * @throws RedirectionExceptionInterface
+     *
+     * @param  DateTime  $date
+     * @param  string    $from
+     * @param  string    $to
+     *
+     * @return float
+     * @throws CacheException
      * @throws ClientExceptionInterface
+     * @throws InvalidArgumentException
      * @throws JsonException
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
     public function getCurrency(DateTime $date, string $from, string $to): float
     {
@@ -56,6 +64,7 @@ class Cbr
 
     /**
      * Получить курс валюты и разницу с прошлым торговым днём
+     *
      * @return array<float>
      * @throws ServerExceptionInterface
      * @throws InvalidArgumentException

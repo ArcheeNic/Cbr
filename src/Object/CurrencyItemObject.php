@@ -12,7 +12,7 @@ class CurrencyItemObject
     private ?string $ISOCharCode;
 
     /**
-     * @param  array<mixed>  $attributes
+     * @param  mixed[]  $attributes
      */
     public function __construct(array $attributes = [])
     {

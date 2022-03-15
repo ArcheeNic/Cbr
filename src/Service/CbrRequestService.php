@@ -25,7 +25,7 @@ class CbrRequestService
     /**
      * @param  DateTime  $date
      *
-     * @return array<mixed>|null
+     * @return mixed[]|null
      * @throws JsonException
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -55,11 +55,11 @@ class CbrRequestService
     }
 
     /**
-     * @param  string     $parentCode
+     * @param  string    $parentCode
      * @param  DateTime  $start
      * @param  DateTime  $finish
      *
-     * @return array<mixed>|null
+     * @return mixed[]|null
      * @throws JsonException
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
@@ -91,7 +91,7 @@ class CbrRequestService
     }
 
     /**
-     * @return array<mixed>|null
+     * @return mixed[]|null
      * @throws JsonException
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface

@@ -6,17 +6,18 @@ use ArcheeNic\Cbr\Config;
 use ArcheeNic\Cbr\Object\CurrencyItemObject;
 use ArcheeNic\Cbr\Object\ExchangeItemObject;
 use DateTime;
+use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\AbstractTagAwareAdapter;
 
 class CacheManipulateService
 {
     private AbstractTagAwareAdapter $cache;
-    private Config          $config;
+    private Config                  $config;
 
     /**
      * @param  AbstractTagAwareAdapter  $cache
-     * @param  Config           $config
+     * @param  Config                   $config
      */
     public function __construct(AbstractTagAwareAdapter $cache, Config $config)
     {
@@ -50,6 +51,8 @@ class CacheManipulateService
      * @param  array<CurrencyItemObject>  $data
      *
      * @return void
+     * @throws InvalidArgumentException
+     * @throws CacheException
      */
     public function setCurrencyReference(array $data): void
     {
@@ -73,6 +76,10 @@ class CacheManipulateService
         );
     }
 
+    /**
+     * @throws CacheException
+     * @throws InvalidArgumentException
+     */
     public function setDayResult(bool $result, DateTime $date): void
     {
         $key          = $this->makeCurrencyKey('load', $date);
@@ -94,6 +101,10 @@ class CacheManipulateService
         );
     }
 
+    /**
+     * @throws CacheException
+     * @throws InvalidArgumentException
+     */
     public function setCurrency(ExchangeItemObject $row): void
     {
         $key  = $this->makeCurrencyKey($row->getCode(), $row->getDate());

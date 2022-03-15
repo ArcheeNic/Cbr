@@ -2,10 +2,17 @@
 
 namespace ArcheeNic\Cbr;
 
+use DateTime;
+use JsonException;
 use PHPUnit\Framework\TestCase;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
 use Symfony\Component\Cache\Adapter\RedisTagAwareAdapter;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class CbrTest extends TestCase
@@ -24,11 +31,19 @@ class CbrTest extends TestCase
         $this->httpClient = (new HttpClient)::create();
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws RedirectionExceptionInterface
+     * @throws JsonException
+     * @throws TransportExceptionInterface
+     */
     public function testGetExternallyCurrency(): void
     {
         $cbr = CbrFacade::init($this->config, $this->cache, $this->httpClient);
 
-        $data = $cbr->getExternallyCurrency(\DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'USD', 'EUR');
+        $data = $cbr->getExternallyCurrency(DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'USD', 'EUR');
         $this->assertEquals(
             $data,
             [
@@ -37,17 +52,16 @@ class CbrTest extends TestCase
                 "diff"    => -0.0127,
             ]
         );
-        $data = $cbr->getExternallyCurrency(\DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'USD', 'RUB');
+        $data = $cbr->getExternallyCurrency(DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'USD', 'RUB');
         $this->assertEquals(
-            $data,
             [
                 "current" => 120.3785,
                 "last"    => 116.0847,
-                "diff"    => 4.2938
-                ,
-            ]
+                "diff"    => 4.2938,
+            ],
+            $data
         );
-        $data = $cbr->getExternallyCurrency(\DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'EUR', 'USD');
+        $data = $cbr->getExternallyCurrency(DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'EUR', 'USD');
         $this->assertEquals(
             $data,
             [
@@ -58,15 +72,23 @@ class CbrTest extends TestCase
         );
     }
 
+    /**
+     * @throws ClientExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws RedirectionExceptionInterface
+     * @throws JsonException
+     * @throws TransportExceptionInterface
+     */
     public function testGetCurrency(): void
     {
         $cbr = CbrFacade::init($this->config, $this->cache, $this->httpClient);
 
-        $data = $cbr->getCurrency(\DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'USD', 'EUR');
+        $data = $cbr->getCurrency(DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'USD', 'EUR');
         $this->assertEquals($data, 0.9054);
-        $data = $cbr->getCurrency(\DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'RUB', 'EUR');
+        $data = $cbr->getCurrency(DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'RUB', 'EUR');
         $this->assertEquals($data, 0.0075);
-        $data = $cbr->getCurrency(\DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'EUR', 'USD');
+        $data = $cbr->getCurrency(DateTime::createFromFormat('Y-m-d', '2022-03-11'), 'EUR', 'USD');
         $this->assertEquals($data, 1.1045);
     }
 }

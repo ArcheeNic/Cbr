@@ -5,6 +5,7 @@ namespace ArcheeNic\Cbr\Service;
 use ArcheeNic\Cbr\Mapper\RequestMapper;
 use ArcheeNic\Cbr\Object\CurrencyItemObject;
 use JsonException;
+use Psr\Cache\CacheException;
 use Psr\Cache\InvalidArgumentException;
 use RuntimeException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -35,7 +36,13 @@ class CurrencyReferenceGettingService
 
     /**
      * @return array<CurrencyItemObject>
+     * @throws ClientExceptionInterface
      * @throws InvalidArgumentException
+     * @throws JsonException
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws CacheException
      */
     public function get(): array
     {
@@ -61,7 +68,13 @@ class CurrencyReferenceGettingService
      * @param  string  $code
      *
      * @return CurrencyItemObject|null
+     * @throws CacheException
+     * @throws ClientExceptionInterface
      * @throws InvalidArgumentException
+     * @throws JsonException
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
     public function getByISOCharCode(string $code): ?CurrencyItemObject
     {
@@ -76,11 +89,13 @@ class CurrencyReferenceGettingService
 
     /**
      * @return array<CurrencyItemObject>
-     * @throws JsonException
      * @throws ClientExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws JsonException
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
+     * @throws CacheException
      */
     private function getData(): array
     {
