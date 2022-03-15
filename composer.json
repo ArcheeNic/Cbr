@@ -1,17 +1,29 @@
 {
-    "name": "archee-nic/cbr",
-    "description": "cbr.ru custom SDK api",
-    "type": "library",
-    "license": "GPL-3.0",
-    "authors": [
-        {
-            "name": "Kasimov Arthur",
-            "email": "kasimovarthur@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-        "symfony/cache": "6.0.x-dev",
-        "symfony/http-client": "6.0.x-dev"
+  "name": "archee-nic/cbr",
+  "description": "cbr.ru custom SDK api",
+  "type": "library",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Kasimov Arthur",
+      "email": "kasimovarthur@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ArcheeNic\\Cbr\\": ["src/","tests/"]
+    }
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "symfony/cache": "^6.0",
+    "symfony/http-client": "^6.0",
+    "laravie/parser": "^v2.1",
+    "ext-simplexml": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "10.0.x-dev",
+    "phpstan/phpstan": "~1.4",
+    "symfony/var-dumper": "~6.0"
+  }
 }
