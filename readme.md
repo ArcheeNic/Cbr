@@ -1,14 +1,19 @@
 # сборка тестовой среды
-
-docker-compose up -d docker exec -it currency-php-1 composer install
-
+```bash
+docker-compose up -d
+docker exec -it currency-php-1 composer install
+```
 # Тестирование
 
+```bash
 docker exec -it currency-php-1 vendor/bin/phpunit
+```
 
 # PHP Stan
 
+```bash
 docker exec -it currency-php-1 vendor/bin/phpstan
+```
 
 # Use
 

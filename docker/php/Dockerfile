@@ -8,7 +8,6 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 RUN install-php-extensions simplexml
 RUN install-php-extensions zip
 RUN install-php-extensions redis
-RUN composer install
 
 USER root
 WORKDIR /var/www
