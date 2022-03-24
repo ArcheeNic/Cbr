@@ -19,9 +19,9 @@ docker exec -it currency-php-1 vendor/bin/phpstan
 
 ```php
     $cacheClient      = RedisAdapter::createConnection('redis://redisCurrency:6379');
-    $this->cache      = new RedisTagAwareAdapter($cacheClient);
-    $this->config     = new Config();
-    $this->httpClient = (new HttpClient)::create();
+    $cache            = new RedisTagAwareAdapter($cacheClient);
+    $config           = new Config();
+    $httpClient       = (new HttpClient)::create();
 
     $cbr = CbrFacade::init($this->config, $this->cache, $this->httpClient);
 ```
