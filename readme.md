@@ -23,7 +23,7 @@ docker exec -it currency-php-1 vendor/bin/phpstan
     $config           = new Config();
     $httpClient       = (new HttpClient)::create();
 
-    $cbr = CbrFacade::init($this->config, $this->cache, $this->httpClient);
+    $cbr = CbrFacade::init($config, $cache, $httpClient);
 ```
 
 # Получить курс валюты на выбранный день без учёта прошлого торгового дня
