@@ -1,3 +1,7 @@
+# Использование как внешнией библиотеки
+```bash
+composer require archee-nic/cbr
+```
 # сборка тестовой среды
 ```bash
 docker-compose up -d
